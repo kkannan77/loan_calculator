@@ -1,0 +1,123 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h3>Loan Calculator</h3>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="checkoutForm" id="checkoutForm" autocomplete="off">
+
+      <div class="form-group">
+        <label for="requestedAmount">Loan Amount</label>
+        <div class="input-group suffix">
+          <input type="number" formControlName="requestedAmount" class="form-control" id="requestedAmount"
+          />
+          <span class="input-group-addon ">{{currency}}</span>
+        </div>
+
+        <div [hidden]="f['requestedAmount'].valid || f['requestedAmount'].pristine" class="alert alert-danger">
+          <div *ngIf="f['requestedAmount'].errors?.['required']">Please enter Loan amount</div>
+          <div *ngIf="f['requestedAmount'].errors?.['min']">Min Loan Amount required is 20000000 !</div>
+          <div *ngIf="f['requestedAmount'].errors?.['incorrect']">{{f['requestedAmount']?.getError('incorrect')}}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="monthlyIncome">Monthly Income</label>
+        <div class="input-group suffix">
+          <input type="number" class="form-control" id="monthlyIncome" formControlName="monthlyIncome"
+            name="monthlyIncome" />
+          <span class="input-group-addon ">{{currency}}</span>
+        </div>
+
+        <div [hidden]="f['monthlyIncome'].valid || f['monthlyIncome'].pristine" class="alert alert-danger">
+          <div *ngIf="f['monthlyIncome'].errors?.['required']">Please enter Monthly Income</div>
+          <div *ngIf="f['monthlyIncome'].errors?.['min']">Monthly Income should be min 500000 !</div>
+          <div *ngIf="f['monthlyIncome'].errors?.['incorrect']">{{f['monthlyIncome']?.getError('incorrect')}}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="loanTerm">Loan Term</label>
+        <div class="input-group suffix">
+          <input type="number" class="form-control" id="loanTerm" formControlName="loanTerm" name="loanTerm" />
+          <span class="input-group-addon ">Months</span>
+        </div>
+
+        <div [hidden]="f['loanTerm'].valid || f['loanTerm'].pristine" class="alert alert-danger">
+          <div *ngIf="f['loanTerm'].errors?.['required']">Please enter Loan Term</div>
+          <div *ngIf="f['loanTerm'].errors?.['max']">Maximum available Loan Term is 360 months !</div>
+          <div *ngIf="f['loanTerm'].errors?.['incorrect']">{{f['loanTerm']?.getError('incorrect')}}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="children">Children</label>
+        <select class="form-control" id="children" formControlName="children" name="children">
+          <option *ngFor="let child of childrens" [value]="child">{{child}}</option>
+        </select>
+        <div [hidden]="f['children'].valid || f['children'].pristine" class="alert alert-danger">
+          Children details required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="coapplicant">Coapplicant</label>
+        <select class="form-control" id="coapplicant" formControlName="coapplicant" name="coapplicant">
+          <option *ngFor="let coapp of coapplicants" [value]="coapp">{{coapp}}</option>
+        </select>
+        <div [hidden]="f['coapplicant'].valid || f['coapplicant'].pristine" class="alert alert-danger">
+          Coapplicant details required
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!checkoutForm.valid">Calculate</button>
+      <button type="button" class="btn btn-default" (click)="checkoutForm.reset()">Cancel</button>
+
+    </form>
+  </div>
+  <div [hidden]="!submitted">
+    <h3>Loan Details</h3>
+
+    <div class="row">
+      <div class="col-xs-3">Loan Amount</div>
+      <div class="col-xs-9">{{f['requestedAmount'].value | number }} {{currency}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">Monthly Income</div>
+      <div class="col-xs-9">{{f['monthlyIncome'].value | number }} {{currency}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">Loan Term</div>
+      <div class="col-xs-9">{{f['loanTerm'].value }} Months</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">Children</div>
+      <div class="col-xs-9">{{f['children'].value }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">Coapplicant</div>
+      <div class="col-xs-9">{{f['coapplicant'].value }}</div>
+    </div>
+
+    <div [hidden]="!success">
+      <h3>Loan Interest details</h3>
+
+      <div class="row">
+        <div class="col-xs-3">Loan Interest rate</div>
+        <div class="col-xs-9 result">{{loanDetails.interestRate/100 | number:'2.2-2' }} %</div>
+      </div>
+    </div>
+
+    <br>
+    <button class="btn btn-success" (click)="submitted=false">Edit</button>
+    <button class="btn btn-success" (click)="confirm()" *ngIf="!success">Confirm</button>
+  </div>
+
+</div>

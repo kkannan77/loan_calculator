@@ -1,0 +1,71 @@
+:root {
+  --primaryColor: #fb4f00;
+  --secondaryColor: #d4b8a3;
+  --white: #ffffff;
+}
+
+body{
+  background-color: #fbf2ea;
+  padding: 20px;
+  font-family:RobotoRegular,Helvetica,Arial,sans-serif !important;
+}
+button {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.container{
+  background-color: var(--white);
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 50em;
+}
+
+.btn:focus {
+  outline: none !important;
+}
+
+.btn-success {
+  background-color:#EE7023 !important;
+  border-color:#EE7023 !important;
+}
+
+.btn-success:hover {
+  border: 1px solid var(--primaryColor) !important;
+  background: var(--primaryColor) !important;
+  text-decoration: none;
+}
+
+.btn-default {
+background-color: var(--secondaryColor);
+border-color: var(--secondaryColor);
+}
+
+select{
+  background-color: #ecf9f3 !important;
+}
+
+h3{
+  color:  var(--primaryColor);
+  font-family: 25px/1 HeadlineBlack,Helvetica,Arial,sans-serif;
+}
+
+.ng-valid:not(form)   {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.result{
+  color: var(--primaryColor);
+  font-weight: bold;
+}
